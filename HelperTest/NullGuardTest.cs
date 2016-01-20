@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 namespace HelperTest
 {
     [TestFixture]
-   public class NotNullGuardTest
+   public class NullGuardTest
     {
-        private string errorMessage = "{0} is null, this is not allowed.";
+        private string errorMessage = "Object reference not set to an instance of an object.";
 
         [Test]
         public void CheckStringValue_Okay ()
@@ -20,7 +20,7 @@ namespace HelperTest
             var value = "string value";
 
             //Act
-            NotNullGuard.Check(value);
+            NullGuard.Check(value);
 
             //Assert
             Assert.True(true);
@@ -33,7 +33,7 @@ namespace HelperTest
             var value = 1;
 
             //Act
-            NotNullGuard.Check(value);
+            NullGuard.Check(value);
 
             //Assert
             Assert.True(true);
@@ -46,7 +46,7 @@ namespace HelperTest
             var value = DateTime.Now;
 
             //Act
-            NotNullGuard.Check(value);
+            NullGuard.Check(value);
 
             //Assert
             Assert.True(true);
@@ -60,10 +60,10 @@ namespace HelperTest
             int? value = null;
 
             //Act
-            var ex = Assert.Catch<ArgumentNullException>(() => NotNullGuard.Check(value));
+            var ex = Assert.Catch<ArgumentNullException>(() => NullGuard.Check(value));
 
             //Assert
-            StringAssert.Equals(string.Format(errorMessage, "value"), ex.Message);
+            Assert.AreEqual(errorMessage, ex.ParamName);
         }
 
         [Test]
@@ -73,10 +73,10 @@ namespace HelperTest
             string value = null;
 
             //Act
-            var ex = Assert.Catch<ArgumentNullException>(() => NotNullGuard.Check(value));
+            var ex = Assert.Catch<ArgumentNullException>(() => NullGuard.Check(value));
 
             //Assert
-            StringAssert.Equals(string.Format(errorMessage,"value"), ex.Message);
+            Assert.AreEqual(errorMessage, ex.ParamName);
         }
     }
 }
