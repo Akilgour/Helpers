@@ -8,25 +8,30 @@ namespace Helper
 {
     public class SystemTime
     {
-        private static DateTime datetime;
+        private static DateTime dateTime;
+
+        public static void Set(DateTime custom)
+        {
+            dateTime = custom;
+        }
 
         public static void Reset()
         {
-            datetime = DateTime.MinValue;
+            dateTime = DateTime.MinValue;
         }
 
         public static DateTime Now
         {
             get
             {
-                return new DateTime(1983, 8, 27);
+                if (dateTime != DateTime.MinValue)
+                {
+                    return dateTime;
+                }
+                return DateTime.Now;
             }
-
         }
 
-        public static void Set(DateTime dateTime)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }
